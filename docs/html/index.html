@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dashserve: Plotly Dash Served Easily &#8212; dashserve 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="dashserve 0.1 documentation" href="#" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="dashserve-plotly-dash-served-easily">
+<h1>dashserve: Plotly Dash Served Easily<a class="headerlink" href="#dashserve-plotly-dash-served-easily" title="Permalink to this headline">¶</a></h1>
+<p><em>dashserve</em> supports developing and serving Plotly Dash apps within Jupyter Notebook.
+dashserve can also serialize Dash apps and serve them anywhere from a file.</p>
+<p>What makes dashserve awesome?</p>
+<ul class="simple">
+<li>it takes just a single simple change to your existing Dash app (change <code class="code docutils literal"><span class="pre">dash.Dash</span></code> to <code class="code docutils literal"><span class="pre">JupyterDash</span></code>)</li>
+<li>serve straight from Jupyter Notebook or JupyterLab</li>
+<li>publish Dash apps in a standalone server</li>
+</ul>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>$ pip install dashserve
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-from-within-jupyter-notebook-or-jupyter-lab">
+<h2>Run from within Jupyter Notebook or Jupyter Lab<a class="headerlink" href="#run-from-within-jupyter-notebook-or-jupyter-lab" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># in Jupyter Notebook</span>
+<span class="kn">from</span> <span class="nn">dashserve</span> <span class="k">import</span> <span class="n">JupyterDash</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">JupyterDash</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">()</span>
+
+<span class="o">*</span> <span class="n">Serving</span> <span class="n">Flask</span> <span class="n">app</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">(</span><span class="n">lazy</span> <span class="n">loading</span><span class="p">)</span>
+<span class="o">*</span> <span class="n">Environment</span><span class="p">:</span> <span class="n">production</span>
+  <span class="n">WARNING</span><span class="p">:</span> <span class="n">Do</span> <span class="ow">not</span> <span class="n">use</span> <span class="n">the</span> <span class="n">development</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">production</span> <span class="n">environment</span><span class="o">.</span>
+  <span class="n">Use</span> <span class="n">a</span> <span class="n">production</span> <span class="n">WSGI</span> <span class="n">server</span> <span class="n">instead</span><span class="o">.</span>
+<span class="o">*</span> <span class="n">Debug</span> <span class="n">mode</span><span class="p">:</span> <span class="n">off</span>
+<span class="o">*</span> <span class="n">Running</span> <span class="n">on</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8050</span><span class="o">/</span> <span class="p">(</span><span class="n">Press</span> <span class="n">CTRL</span><span class="o">+</span><span class="n">C</span> <span class="n">to</span> <span class="n">quit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-as-a-standalone-server">
+<h2>Run as a standalone server<a class="headerlink" href="#run-as-a-standalone-server" title="Permalink to this headline">¶</a></h2>
+<p>Running a standalone server is just as easy</p>
+<ol class="arabic">
+<li><p class="first">Save the JupyterDash app to a file</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># in Jupyter notebook</span>
+<span class="n">app</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;/path/to/myapp.dash&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Run dashserve</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span># from the command line
+$ python -m dashserve /path/to/myapp.dash
+dashserve (c) 2019 one2seven GmbH, makers of omegaml.io - productize your AI/ML applications
+ * Serving Flask app &quot;__main__&quot; (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:8050/ (Press CTRL+C to quit)
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="run-as-a-production-server">
+<h2>Run as a production server<a class="headerlink" href="#run-as-a-production-server" title="Permalink to this headline">¶</a></h2>
+<p>If you need to run in a production environment, use a WSGI server</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>$ DASH_APP=/path/to/myapp.dash gunicorn dashserve.wsgi:app -b localhost:8050
+[2019-03-30 17:11:41 +0100] [19727] [INFO] Starting gunicorn 19.7.1
+[2019-03-30 17:11:41 +0100] [19727] [INFO] Listening at: http://127.0.0.1:8050 (19727)
+[2019-03-30 17:11:41 +0100] [19727] [INFO] Using worker: sync
+[2019-03-30 17:11:41 +0100] [19731] [INFO] Booting worker with pid: 19731
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="build-powerful-machine-learning-apps">
+<h1>Build Powerful Machine Learning Apps<a class="headerlink" href="#build-powerful-machine-learning-apps" title="Permalink to this headline">¶</a></h1>
+<p>dashserve is an extension to <a class="reference external" href="https://omegaml.io">omega|ml</a>, our core product to productize data science</p>
+<p>Looking for a way to build &amp; deploy machine learning apps with a single line of code?
+Look no further. Just combine dashserve with omega|ml. Then you can integrate machine
+learning models in Plotly Dash apps as easily as this:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">app</span> <span class="o">=</span> <span class="n">JupyterDash</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">prediction_output</span><span class="p">(</span><span class="n">input_value</span><span class="p">):</span>
+   <span class="n">model</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mymodel&#39;</span><span class="p">)</span>
+   <span class="n">yhat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_value</span><span class="p">)</span>
+   <span class="k">return</span> <span class="s1">&#39;prediction yhat=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yhat</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Getting data from omega|ml is also just one line of code:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1"># in your Dash app</span>
+<span class="kn">import</span> <span class="nn">omegaml</span> <span class="k">as</span> <span class="nn">om</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mydata&#39;</span><span class="p">)</span>
+
+<span class="c1"># see https://dash.plot.ly/getting-started, Reusable components for a full example</span>
+</pre></div>
+</div>
+<p>Publishing data and the trained model directly from Jupyter is straight forward - it&#8217;s literally
+just two lines of code. Here&#8217;s a full example:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1"># in your jupyter notebook (model training)</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">svm</span>
+<span class="kn">import</span> <span class="nn">omegaml</span> <span class="k">as</span> <span class="nn">om</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+
+<span class="c1"># train model</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="s1">&#39;scale&#39;</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># save model and data</span>
+<span class="n">om</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="s1">&#39;mydata&#39;</span><span class="p">)</span>
+<span class="n">om</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="s1">&#39;mymodel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h1>
+<p>dashserve does not have any dependencies other than Plotly Dash.</p>
+</div>
+<div class="section" id="why-dashserve">
+<h1>Why dashserve?<a class="headerlink" href="#why-dashserve" title="Permalink to this headline">¶</a></h1>
+<p>We looked at several other options, however found none matched our needs: to develop
+Plotly Dash apps using Jupyter Notebook or JupyterLab and deploy them later.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://pypi.org/project/jupyter-plotly-dash/">https://pypi.org/project/jupyter-plotly-dash/</a> requires Django while Dash depends on Flask.
+Mixing two web frameworks adds too much complexity and does not sound like a good idea
+in the first place.</li>
+<li><a class="reference external" href="https://github.com/plotly/jupyterlab-dash">https://github.com/plotly/jupyterlab-dash</a> is a JuypterLab extension. That&#8217;s nice if you
+run JupyterLab, however it does not support serialized apps and serve from another server.</li>
+</ul>
+</div>
+<div class="section" id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+<p>The MIT License (MIT)</p>
+<p>Copyright (c) 2019 one2seven GmbH, makers of omega|ml, <a class="reference external" href="http://omegaml.io">http://omegaml.io</a></p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &#8220;Software&#8221;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &#8220;AS IS&#8221;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+</div>
+<div class="section" id="commercial-support">
+<h1>Commercial support<a class="headerlink" href="#commercial-support" title="Permalink to this headline">¶</a></h1>
+<p>dashserve is brought to you by omega|ml - productize machine learning</p>
+<p>The commercial version of dashserve is a module of omega|ml to provide multi-user
+analytics dashboards, enterprise-grade security, full data integration and machine
+learning applications. From laptop to web scale, all deployed with a single-line of code.</p>
+<p>We can help you build and deploy analytics applications easily. Get in touch
+at <a class="reference external" href="mailto:info&#37;&#52;&#48;omegaml&#46;io">info<span>&#64;</span>omegaml<span>&#46;</span>io</a> or chat with us at <a class="reference external" href="http://omegaml.io">http://omegaml.io</a></p>
+<ul class="simple">
+<li>Serving machine learning models to applications using our state-of-the art REST API</li>
+<li>Getting your data science team from zero to speed using omega|ml, batteries included</li>
+<li>Consulting on data science, visualizations using Plotly and machine learning frameworks</li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dashserve: Plotly Dash Served Easily</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#run-from-within-jupyter-notebook-or-jupyter-lab">Run from within Jupyter Notebook or Jupyter Lab</a></li>
+<li><a class="reference internal" href="#run-as-a-standalone-server">Run as a standalone server</a></li>
+<li><a class="reference internal" href="#run-as-a-production-server">Run as a production server</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-powerful-machine-learning-apps">Build Powerful Machine Learning Apps</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#why-dashserve">Why dashserve?</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#commercial-support">Commercial support</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, one2seven GmbH, https://omegaml.io.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
