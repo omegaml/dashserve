@@ -54,6 +54,7 @@ dashserve can also serialize Dash apps and serve them anywhere from a file.</p>
 <li>it takes just a single simple change to your existing Dash app (change <code class="code docutils literal"><span class="pre">dash.Dash</span></code> to <code class="code docutils literal"><span class="pre">JupyterDash</span></code>)</li>
 <li>serve straight from Jupyter Notebook or JupyterLab</li>
 <li>publish Dash apps in a standalone server</li>
+<li>no dependencies other than Plotly Dash (ok, some dill for serialization)</li>
 </ul>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -161,7 +162,8 @@ just two lines of code. Here&#8217;s a full example:</p>
 </div>
 <div class="section" id="dependencies">
 <h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h1>
-<p>dashserve does not have any dependencies other than Plotly Dash.</p>
+<p>dashserve supports Plotly Dash version 0.39 or later. It uses the dill package
+by Mike McKerns to serialize applications. Requires Python 3.6 or later.</p>
 </div>
 <div class="section" id="why-dashserve">
 <h1>Why dashserve?<a class="headerlink" href="#why-dashserve" title="Permalink to this headline">¶</a></h1>
