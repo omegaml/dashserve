@@ -1,10 +1,10 @@
 dashserve: Plotly Dash Served Easily
 ====================================
 
-*dashserve* supports developing and serving Plotly Dash apps within Jupyter Notebook.
-dashserve can also serialize Dash apps and serve them anywhere form a file.
+*dashserve* supports developing and serving Plotly Dash apps within Jupyter Notebook and JupyterLab.
+dashserve can also serialize Dash apps to a file and serve it using your favorite WSGI server.
 
-Documentation https://omegaml.github.io/dashserve/html/index.html
+Documentation https://omegaml.github.io/dashserve
 
 Run from within Jupyter Notebook or Jupyter Lab
 -----------------------------------------------
