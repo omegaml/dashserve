@@ -53,7 +53,7 @@ class JupyterDashServer:
             JupyterDashServer.__SERVERS.remove(self)
         print("Stopped")
 
-    def update(self, app):
+    def update(self, app: object) -> object:
         self.runner.stop()
         self.app = app
         self.run()
