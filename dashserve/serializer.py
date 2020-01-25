@@ -9,24 +9,23 @@ class DashAppSerializer:
     def serialize(self, wrap=True):
         app = self.app
         buffer = {
-            'version': '0.1',
+            'version': '1.0',
             'attrs': {
                 'layout': app.layout,
                 'css': app.css,
                 'scripts': app.scripts,
-                'config': app.config,
+                # 'config': app.config, # config should be only set through kwargs
             },
             'args': [app._name],
             'kwargs': {
-                'external_stylesheets': app._external_stylesheets,
-                'external_scripts': app._external_scripts,
-                'static_folder': app.flask_server.static_folder,
-                'assets_folder': app._assets_folder,
-                'assets_url_path': app._assets_url_path,
-                'url_base_pathname': app.url_base_pathname,
+                'external_stylesheets': app.config.external_stylesheets,
+                'external_scripts': app.config.external_scripts,
+                'assets_folder': app.config.assets_folder,
+                'assets_url_path': app.config.assets_url_path,
+                'url_base_pathname': app.config.url_base_pathname,
                 'index_string': app.index_string,
-                'meta_tags': app._meta_tags,
-                'assets_ignore': app.assets_ignore,
+                'meta_tags': app.config.meta_tags,
+                'assets_ignore': app.config.assets_ignore,
 
             },
             'rebuild': {
@@ -40,7 +39,7 @@ class DashAppSerializer:
             }
         return serialized
 
-    def deserialize(self, serialized):
+    def deserialize(self, serialized, **kwargs):
         from dashserve.jupyter import DashserveApp
 
         if isinstance(serialized, dict):
@@ -48,9 +47,13 @@ class DashAppSerializer:
         buffer = loads(b64decode(serialized))
         # re create dashappp
         # -- instantiate with kwargs
+        buffer['kwargs'].update(kwargs)
         app = DashserveApp(*buffer['args'], **buffer['kwargs'])
         # -- apply attributes
         for k, v in buffer['attrs'].items():
+            if k == 'config':
+                # config should only be influenced by kwargs
+                continue
             setattr(app, k, v)
         # -- register call backs
         cbregistry = buffer['rebuild'].get('cbregistry', [])
