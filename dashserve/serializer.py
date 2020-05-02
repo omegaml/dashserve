@@ -16,22 +16,17 @@ class DashAppSerializer:
                 'scripts': app.scripts,
                 # 'config': app.config, # config should be only set through kwargs
             },
-            'args': [app._name],
+            'args': [],
             'kwargs': {
-                'external_stylesheets': app.config.external_stylesheets,
-                'external_scripts': app.config.external_scripts,
-                'assets_folder': app.config.assets_folder,
-                'assets_url_path': app.config.assets_url_path,
-                'url_base_pathname': app.config.url_base_pathname,
-                'index_string': app.index_string,
-                'meta_tags': app.config.meta_tags,
-                'assets_ignore': app.config.assets_ignore,
-
+                k: app.config.get(k) for k in app.config.keys()
             },
             'rebuild': {
                 'cbregistry': getattr(app, '_cbregistry', None),
             }
         }
+        # fix for duplicate name arguments in Dash > 1.6
+        if 'name' not in buffer['kwargs']:
+            buffer['kwargs']['name'] = app._name
         serialized = b64encode(dumps(buffer))
         if wrap:
             serialized = {
@@ -48,6 +43,11 @@ class DashAppSerializer:
         # re create dashappp
         # -- instantiate with kwargs
         buffer['kwargs'].update(kwargs)
+        # fixing url_base_pathname and requests_pathname_prefix ambiguity
+        # https://github.com/plotly/dash/issues/364
+        if 'url_base_pathname' in buffer['kwargs']:
+            del buffer['kwargs']['requests_pathname_prefix']
+            del buffer['kwargs']['routes_pathname_prefix']
         app = DashserveApp(*buffer['args'], **buffer['kwargs'])
         # -- apply attributes
         for k, v in buffer['attrs'].items():
