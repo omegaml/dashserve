@@ -1,4 +1,5 @@
 import os
+
 from setuptools import setup, find_packages
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
@@ -6,9 +7,11 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
+dev_deps = ['nose', 'twine']
+
 setup(
     name='dashserve',
-    version='0.1.6',
+    version='0.1.7',
     packages=find_packages(),
     include_package_data=True,
     license='MIT',  # example license
@@ -17,7 +20,7 @@ setup(
     url='https://omegaml.github.io/dashserve/',
     author='Patrick Senti',
     author_email='patrick.senti@omegaml.io',
-        classifiers=[
+    classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Framework :: Flask',
@@ -38,8 +41,12 @@ setup(
         'Topic :: Software Development :: Widget Sets'
     ],
     install_requires=[
-        'dash>=0.39.0',
+        'dash>=1.0',
         'dash-daq>=0.1.0',
         'dill>=0.2.6',
+        'requests',
     ],
+    extras_require={
+        'dev': dev_deps,
+    },
 )
