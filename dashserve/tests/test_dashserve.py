@@ -27,12 +27,6 @@ class DashServeTests(TestCase):
         # see if the callback map was restored
         for k, v in app.callback_map.items():
             self.assertIn(k, new_app.callback_map)
-            for ki, vi in v.items():
-                self.assertIn(ki, v)
-                if ki != 'callback':
-                    self.assertEqual(vi, new_app.callback_map[k][ki])
-                else:
-                    self.assertEqual(vi.__name__, new_app.callback_map[k][ki].__name__)
 
     def test_jupyter_server(self):
         app = self.app

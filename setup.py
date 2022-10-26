@@ -7,7 +7,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-dev_deps = ['nose', 'twine']
+dev_deps = ['pytest', 'twine']
 
 setup(
     name='dashserve',
@@ -43,7 +43,7 @@ setup(
     install_requires=[
         'dash>=1.0',
         'dash-daq>=0.1.0',
-        'dill>=0.2.6',
+        'dill>=0.3.2,<0.3.6', # due to issue https://github.com/uqfoundation/dill/issues/332
         'requests',
     ],
     extras_require={
